@@ -176,7 +176,7 @@ function setup_replicable_experiment()
     echo "Current mode: Replicable"
     write_destination_info 1
     cd ${REPLICABLEEXPERIMENTDIRECTORY}
-    REPLICABLEEXPERIMENTSHA1="$(git rev-pase --short HEAD)"
+    REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
     cd ${CURRENTDIRECTORY}
     echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
     chmod -R +rx "${DESTINATIONDIRECTORY}"
