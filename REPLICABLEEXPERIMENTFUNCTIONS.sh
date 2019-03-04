@@ -196,7 +196,8 @@ function setup_replicable_experiment_script()
         return 0
     fi
     CURRENTDIRECTORY=$(pwd)
-    if [ ! read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt" ]
+    read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
+    if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}" ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
         graceful_exit 1
@@ -210,7 +211,8 @@ function setup_replicable_experiment_script()
     else
         DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
     fi
-    if [ ! read DESTINATIONFROMFILE < "DESTINATION.txt" ]
+    read DESTINATIONFROMFILE < "DESTINATION.txt"
+    if [ -z "${DESTINATIONFROMFILE}" ] || [ "" = "${DESTINAIONFROMFILE}"]
     then
        echo "Error: unable to read DESTINATION.txt."
        graceful_exit 1
@@ -247,7 +249,8 @@ function replicable_experiment_cleanup()
 {
     export REPLICABLE=1
     CURRENTDIRECTORY=$(pwd)
-    if [ ! read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt" ]
+    read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
+    if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}"
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
         graceful_exit 1
