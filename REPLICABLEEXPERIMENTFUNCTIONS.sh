@@ -26,6 +26,7 @@ function gracefully_exit_setup()
         fi
     fi
     if [! -z "${DESTINATIONDIRECTORY}" ]
+    then
         if [ ls "${DESTINATIONDIRECTORY}" 2>/dev/null]
         then
             chmod -R +rx "${DESTINATIONDIRECTORY}"
@@ -45,6 +46,7 @@ function gracefully_exit_failed_replicable_experiment_script()
     fi
     
     if [! -z "${DESTINATIONDIRECTORY}" ]
+    then
         if [ ls "${DESTINATIONDIRECTORY}" 2>/dev/null]
         then
             chmod -R +rx "${DESTINATIONDIRECTORY}"
