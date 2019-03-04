@@ -104,21 +104,21 @@ function get_destination_info()
     while :
     do
         read TEMPVAR
-        if [ "${TEMPVAR}" -ne "Debug directory:" ]
+        if [ "${TEMPVAR}" != "Debug directory:" ]
         then
             echo "First line of PATHS.txt should be Debug directory:"
             graceful_exit $1
         fi
         read DEBUGDIRECTORY
         read TEMPVAR
-        if [ "${TEMPVAR}" -ne "Penulatimate directory:" ]
+        if [ "${TEMPVAR}" != "Penulatimate directory:" ]
         then
             echo "Third line of PATHS.txt should be Penultimate directory:"
             graceful_exit $1
         fi
         read REPLICABLEDIRECTORY
         read TEMPVAR
-        if [ "${TEMPVAR}" -ne "SHA1" ]
+        if [ "${TEMPVAR}" != "SHA1" ]
         then
             echo "Fifth line of PATHS.txt should be SHA1:"
             graceful_exit $1
@@ -133,7 +133,7 @@ function get_destination_info()
 
 function write_destination_info()
 {
-    if [ "$({REPLICABLEDIRECTORY}: -1)" -eq "/" ]
+    if [ "$({REPLICABLEDIRECTORY}: -1)" = "/" ]
     then
         export DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
     else
@@ -164,7 +164,7 @@ function setup_replicable_experiment()
 {
     CURRENTDIRECTORY=$(pwd)
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
-    if [ {-z ${REPLICABLEEXPERIMENTDIRECTORY}}||{"" -eq ${REPLICABLEEXPERIMENTDIRECTORY}}} ]
+    if [ {-z ${REPLICABLEEXPERIMENTDIRECTORY}}||{"" = ${REPLICABLEEXPERIMENTDIRECTORY}}} ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
         gracefully_exit_setup
@@ -202,7 +202,7 @@ function setup_replicable_experiment_script()
     exit_if_directory_not_clean "1" "${REPLICABLEEXPERIMENTDIRECTORY}"
     exit_if_directory_not_clean "1" "${CURRENTDIRECTORY}"
     get_destination_info
-    if [ "$({REPLICABLEDIRECTORY}: -1)" -eq "/" ]
+    if [ "$({REPLICABLEDIRECTORY}: -1)" = "/" ]
     then
         DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
     else
@@ -213,15 +213,15 @@ function setup_replicable_experiment_script()
        echo "Error: unable to read DESTINATION.txt."
        graceful_exit 1
     fi
-    if [ "${{DESTINATIONFROMFILE}: -1)" -eq "/" ]
+    if [ "${{DESTINATIONFROMFILE}: -1)" = "/" ]
     then
-        if [ "${DESTINATIONDIRECTORY}/" -ne "${DESTINATIONFROMFILE}"
+        if [ "${DESTINATIONDIRECTORY}/" != "${DESTINATIONFROMFILE}"
         then
             echo "Error: destinations from DESTINATION.txt and PATHS.txt do not match."
             graceful_exit 1
         fi
     else
-        if [ "${DESTINATIONDIRECTORY}" -ne "${DESTINATIONFROMFILE}"
+        if [ "${DESTINATIONDIRECTORY}" != "${DESTINATIONFROMFILE}"
         then
             echo "Error: destination from DESTINATION.txt and PATHS.txt do not match."
             graceful_exit 1
