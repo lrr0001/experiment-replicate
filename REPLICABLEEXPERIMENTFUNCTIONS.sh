@@ -241,7 +241,10 @@ function setup_replicable_experiment_script()
 
 function gracefully_exit_successful_replicable_experiment_script()
 {
-   chmod -R +rx "${DESTINATIONDIRECTORY}"
+   if [ ! -z "${REPLICABLE}" ] && [ "${REPLICABLE}" -eq "0" ]
+   then
+       chmod -R +rx "${DESTINATIONDIRECTORY}"
+   fi
    exit 0
 }
 
