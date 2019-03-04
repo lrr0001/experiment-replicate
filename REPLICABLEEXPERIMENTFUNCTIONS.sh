@@ -22,7 +22,7 @@ function enter_debug_mode()
     echo "Debugging Mode" > "MODE.txt"
     if [ ! -z "${DEBUGDIRECTORY}" ] && [ "" != "${DEBUGDIRECTORY}" ]
     then
-       export "${DEBUGDIRECTORY}" > "DESTINATION.txt"
+       echo "${DEBUGDIRECTORY}" > "DESTINATION.txt"
     fi
 }
 
