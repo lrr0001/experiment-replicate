@@ -261,7 +261,7 @@ function replicable_experiment_cleanup()
     echo "Debugging Mode" > "MODE.txt"
     CURRENTDIRECTORY=$(pwd)
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
-    if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}"
+    if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}" ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
         graceful_exit 1
