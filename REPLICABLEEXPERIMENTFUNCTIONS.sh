@@ -139,9 +139,9 @@ function write_destination_info()
 {
     if [ "${REPLICABLEDIRECTORY: -1}" = "/" ]
     then
-        export DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
+        export DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1HASH}"
     else
-        export DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
+        export DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1HASH}"
     fi
 
     if [ ! -d "${DESTINATIONDIRECTORY}" ]
