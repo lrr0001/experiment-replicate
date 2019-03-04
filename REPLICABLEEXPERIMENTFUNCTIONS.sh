@@ -223,23 +223,11 @@ function setup_replicable_experiment_script()
        echo "Error: unable to read DESTINATION.txt."
        graceful_exit 1
     fi
-    if [ "${DESTINATIONFROMFILE: -1}" = "/" ]
+
+    if [ "${DESTINATIONDIRECTORY}/" = "${DESTINATIONFROMFILE}" ] && [ "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}" ] && [ "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}/" ]
     then
-        if [ "${DESTINATIONDIRECTORY}/" != "${DESTINATIONFROMFILE}" ]
-        then
-            echo "${DESTINATIONDIRECTORY}"
-            echo "${DESTINATIONFROMFILE}"
-            echo "Error: destinations from DESTINATION.txt and PATHS.txt do not match."
-            graceful_exit 1
-        fi
-    else
-        if [ "${DESTINATIONDIRECTORY}" != "${DESTINATIONFROMFILE}"
-        then
-            echo "${DESTINATIONDIRECTORY}"
-            echo "${DESTIONATIONFROMFILE}"
-            echo "Error: destination from DESTINATION.txt and PATHS.txt do not match."
-            graceful_exit 1
-        fi
+        echo "Error: destinations from DESTINATION.txt and PATHS.txt do not match."
+        graceful_exit 1
     fi
     cd "${REPLICABLEEXPERIMENTDIRECTORY}"
     REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
