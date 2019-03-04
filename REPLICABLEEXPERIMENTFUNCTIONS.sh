@@ -252,6 +252,7 @@ function replicable_experiment_cleanup()
 {
     CURRENTDIRECTORY="$(pwd)"
     get_destination_info
+    SHA1="$(git rev-parse --short HEAD)"
     build_destination_string
     
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
