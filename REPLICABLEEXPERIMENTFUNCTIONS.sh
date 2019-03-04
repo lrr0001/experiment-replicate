@@ -190,6 +190,7 @@ function setup_replicable_experiment()
 
 function setup_replicable_experiment_script()
 {
+    echo "${REPLICABLE}"
     if [ -z "${REPLICABLE}" ] || [ "${REPLICABLE}" -ne "0" ]
     then
         echo "Executing $1 in DEBUG mode."
