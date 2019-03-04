@@ -272,7 +272,7 @@ function replicable_experiment_cleanup()
         export REVERTDESTINATIONINFO=1
     fi
     cd "${REPLICABLEEXPERIMENTDIRECTORY}"
-    REPLICABLEEXPERIMENTSHA1="$(git rev-pase --short HEAD)"
+    REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
     cd "${CURRENTDIRECTORY}"
     chmod -R +rwx "${DESTINATIONDIRECTORY}"
     echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
