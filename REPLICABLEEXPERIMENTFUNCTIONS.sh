@@ -259,6 +259,12 @@ function replicable_experiment_cleanup()
         graceful_exit 1
     fi
     get_destination_info 1
+    if [ "${REPLICABLEDIRECTORY: -1}" = "/" ]
+    then
+        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
+    else
+        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
+    fi
     if echo "${DEBUGDIRECTORY}" > "DESTINATION.txt"
     then
         export REVERTDESTINATIONINFO=1
