@@ -252,9 +252,8 @@ function replicable_experiment_cleanup()
 {
     CURRENTDIRECTORY="$(pwd)"
     get_destination_info
-    enter_debug_mode
     build_destination_string
-
+    
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
     if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}" ]
     then
@@ -264,5 +263,6 @@ function replicable_experiment_cleanup()
     
     write_to_diary "$1"
     lock_destination_directory
+    enter_debug_mode
     return 0
 }
