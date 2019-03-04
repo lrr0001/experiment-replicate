@@ -218,14 +218,14 @@ function setup_replicable_experiment_script()
         DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
     fi
     read DESTINATIONFROMFILE < "DESTINATION.txt"
-    if [ -z "${DESTINATIONFROMFILE}" ] || [ "" = "${DESTINAIONFROMFILE}"]
+    if [ -z "${DESTINATIONFROMFILE}" ] || [ "" = "${DESTINAIONFROMFILE}" ]
     then
        echo "Error: unable to read DESTINATION.txt."
        graceful_exit 1
     fi
     if [ "${DESTINATIONFROMFILE: -1}" = "/" ]
     then
-        if [ "${DESTINATIONDIRECTORY}/" != "${DESTINATIONFROMFILE}"
+        if [ "${DESTINATIONDIRECTORY}/" != "${DESTINATIONFROMFILE}" ]
         then
             echo "Error: destinations from DESTINATION.txt and PATHS.txt do not match."
             graceful_exit 1
@@ -238,7 +238,7 @@ function setup_replicable_experiment_script()
         fi
     fi
     cd "${REPLICABLEEXPERIMENTDIRECTORY}"
-    REPLICABLEEXPERIMENTSHA1="$(git rev-pase --short HEAD)"
+    REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
     cd "${CURRENTDIRECTORY}"
     chmod -R +rwx "${DESTINATIONDIRECTORY}"
     echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
