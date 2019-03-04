@@ -227,12 +227,16 @@ function setup_replicable_experiment_script()
     then
         if [ "${DESTINATIONDIRECTORY}/" != "${DESTINATIONFROMFILE}" ]
         then
+            echo "${DESTINATIONDIRECTORY}"
+            echo "${DESTINATIONFROMFILE}"
             echo "Error: destinations from DESTINATION.txt and PATHS.txt do not match."
             graceful_exit 1
         fi
     else
         if [ "${DESTINATIONDIRECTORY}" != "${DESTINATIONFROMFILE}"
         then
+            echo "${DESTINATIONDIRECTORY}"
+            echo "${DESTIONATIONFROMFILE}"
             echo "Error: destination from DESTINATION.txt and PATHS.txt do not match."
             graceful_exit 1
         fi
