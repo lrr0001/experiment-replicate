@@ -70,7 +70,7 @@ function graceful_exit()
 
 function exit_if_directory_not_clean()
 {
-    if [ nargin -gt "0" ]
+    if [ "#?" -gt 1 ]
     then
         if [ ! cd $2]
         then
