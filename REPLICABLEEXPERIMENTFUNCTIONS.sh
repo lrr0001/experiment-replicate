@@ -140,7 +140,7 @@ function write_destination_info()
         export DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
     fi
 
-    if [! ls ${DESTINATIONDIRECTORY} 2>/dev/null]
+    if [! -d "${DESTINATIONDIRECTORY}" ]
     then
         if [ ! mkdir ${DESTNATIONDIRECTORY} ]
         then
