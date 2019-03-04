@@ -190,7 +190,7 @@ function setup_replicable_experiment()
 
 function setup_replicable_experiment_script()
 {
-    if [ { -z "${REPLICABLE}"}||{"${REPLICABLE}" -ne "0"} ]
+    if [ -z "${REPLICABLE}" ] || [ "${REPLICABLE}" -ne "0" ]
     then
         echo "Executing $1 in DEBUG mode."
         return 0
@@ -204,7 +204,7 @@ function setup_replicable_experiment_script()
     exit_if_directory_not_clean "1" "${REPLICABLEEXPERIMENTDIRECTORY}"
     exit_if_directory_not_clean "1" "${CURRENTDIRECTORY}"
     get_destination_info
-    if [ "$({REPLICABLEDIRECTORY}: -1)" = "/" ]
+    if [ "${REPLICABLEDIRECTORY: -1}" = "/" ]
     then
         DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
     else
@@ -215,7 +215,7 @@ function setup_replicable_experiment_script()
        echo "Error: unable to read DESTINATION.txt."
        graceful_exit 1
     fi
-    if [ "${{DESTINATIONFROMFILE}: -1)" = "/" ]
+    if [ "${DESTINATIONFROMFILE: -1}" = "/" ]
     then
         if [ "${DESTINATIONDIRECTORY}/" != "${DESTINATIONFROMFILE}"
         then
