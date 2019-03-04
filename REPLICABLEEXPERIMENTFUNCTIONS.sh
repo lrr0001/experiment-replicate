@@ -45,7 +45,7 @@ function gracefully_exit_failed_replicable_experiment_script()
         export REVERTDESTINATIONINFO=1
     fi
     
-    if [! -z "${DESTINATIONDIRECTORY}" ]
+    if [ ! -z "${DESTINATIONDIRECTORY}" ]
     then
         if [ -d "${DESTINATIONDIRECTORY}" ]
         then
