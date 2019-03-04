@@ -78,7 +78,7 @@ function exit_if_directory_not_clean()
             graceful_exit $1
         fi
     fi
-    if local TEMPVAR="$(git status --pocelain)"
+    if local TEMPVAR="$(git status --porcelain)"
     then
         :
     else
