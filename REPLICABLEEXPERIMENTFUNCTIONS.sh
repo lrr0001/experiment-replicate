@@ -10,11 +10,12 @@ function gracefully_exit_setup()
     then
         :
     else
-        if [ {! -z "${REPLICABLE}"}&&{"${REPLICABLE}" -eq "0"} ]
+        if [ ! -z "${REPLICABLE}" ] && [ "${REPLICABLE}" -eq "0" ]
         then
             export REPLICABLE=1
             echo "Current mode: Debug"
-            if [ {! -z "${REVERTDESTINATIONINFO}"}&&{"${REVERTDESTINATIONINFO}" -eq "0"} ]
+            echo "Debugging Mode" > "MODE.txt"
+            if [ ! -z "${REVERTDESTINATIONINFO}" ] && [ "${REVERTDESTINATIONINFO}" -eq "0" ]
             then
             
                 if echo "${DEBUGDIRECTORY}" > "DESTINATION.txt"
@@ -39,6 +40,7 @@ function gracefully_exit_failed_replicable_experiment_script()
 {
     export REPLICABLE=1
     echo "Current mode: DEBUG"
+    echo "Debugging Mode" > "MODE.txt"
         
     if echo "${DEBUGDIRECTORY}" > "DESTINATION.txt"
     then
@@ -174,8 +176,9 @@ function setup_replicable_experiment()
     exit_if_directory_not_clean "0" "${REPLICABLEEXPERIMENTDIRECTORY}"
     exit_if_directory_not_clean "0" "${CURRENTDIRECTORY}"
     get_destination_info 1
-    export REPLICABLE=0
+    REPLICABLE=0
     echo "Current mode: Replicable"
+    echo "Replicable Mode" > "MODE.txt"
     write_destination_info 1
     cd "${REPLICABLEEXPERIMENTDIRECTORY}"
     REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
@@ -190,12 +193,13 @@ function setup_replicable_experiment()
 
 function setup_replicable_experiment_script()
 {
-    echo "${REPLICABLE}"
-    if [ -z "${REPLICABLE}" ] || [ "${REPLICABLE}" -ne "0" ]
+    read REPLICABLESTR < "MODE.txt"
+    if [ -z "${REPLICABLESTR}" ] || [ "${REPLICABLESTR}" != "Replicable Mode" ]
     then
         echo "Executing $1 in DEBUG mode."
         return 0
     fi
+    export REPLICABLE=0
     CURRENTDIRECTORY=$(pwd)
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
     if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}" ]
@@ -237,6 +241,7 @@ function setup_replicable_experiment_script()
     cd "${CURRENTDIRECTORY}"
     chmod -R +rwx "${DESTINATIONDIRECTORY}"
     echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
+    export DESTINATIONDIRECTORY
     return 0
 }
 
@@ -252,6 +257,7 @@ function gracefully_exit_successful_replicable_experiment_script()
 function replicable_experiment_cleanup()
 {
     export REPLICABLE=1
+    echo "Debugging Mode" > "MODE.txt"
     CURRENTDIRECTORY=$(pwd)
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
     if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}"
