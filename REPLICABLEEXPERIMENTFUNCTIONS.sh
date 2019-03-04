@@ -25,10 +25,10 @@ function lock_destination_directory()
 function enter_debug_mode()
 {
     echo "Current mode: Debug"
-    echo "Debugging Mode" > "MODE.txt"
+    echo "Debugging Mode" > "r-eStatesAndPaths/MODE.txt"
     if [ ! -z "${DEBUGDIRECTORY}" ] && [ "" != "${DEBUGDIRECTORY}" ]
     then
-       echo "${DEBUGDIRECTORY}" > "DESTINATION.txt"
+       echo "${DEBUGDIRECTORY}" > "r-eStatesAndPaths/DESTINATION.txt"
     fi
 }
 
@@ -84,7 +84,7 @@ function exit_if_directory_not_clean()
 
 function clean_repositories_check()
 {
-    read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
+    read REPLICABLEEXPERIMENTDIRECTORY < "r-eStatesAndPaths/REPLICABLE-EXPERIMENT.txt"
     if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}" ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
@@ -120,7 +120,7 @@ function get_destination_info()
         fi
         read SHA1HASH
         break
-    done < "PATHS.txt"
+    done < "r-eStatesAndPaths/PATHS.txt"
     export REPLICABLEDIRECTORY
     export DEBUGDIRECTORY
     export SHA1HASH
@@ -138,13 +138,13 @@ function build_destination_string()
 
 function write_destination_info()
 {
-    echo "Debug directory:" > "PATHS.txt"
-    echo "${DEBUGDIRECTORY}" >> "PATHS.txt"
-    echo "Penultimate directory:" >> "PATHS.txt"
-    echo "${REPLICABLEDIRECTORY}" >> "PATHS.txt"
-    echo "SHA1:" >> "PATHS.txt"
+    echo "Debug directory:" > "r-eStatesAndPaths/PATHS.txt"
+    echo "${DEBUGDIRECTORY}" >> "r-eStatesAndPaths/PATHS.txt"
+    echo "Penultimate directory:" >> "r-eStatesAndPaths/PATHS.txt"
+    echo "${REPLICABLEDIRECTORY}" >> "r-eStatesAndPaths/PATHS.txt"
+    echo "SHA1:" >> "r-eStatesAndPaths/PATHS.txt"
     SHA1="$(git rev-parse --short HEAD)"
-    echo "${SHA1}" >> "PATHS.txt"
+    echo "${SHA1}" >> "r-eStatesAndPaths/PATHS.txt"
 
     build_destination_string
 
@@ -159,7 +159,7 @@ function write_destination_info()
         fi
     fi
 
-    echo "${DESTINATIONDIRECTORY}" > "DESTINATION.txt"
+    echo "${DESTINATIONDIRECTORY}" > "r-eStatesAndPaths/DESTINATION.txt"
     export DESTINATIONDIRECTORY
 }
 
@@ -186,7 +186,7 @@ function setup_replicable_experiment()
     get_destination_info
     REPLICABLE=0
     echo "Current mode: Replicable"
-    echo "Replicable Mode" > "MODE.txt"
+    echo "Replicable Mode" > "r-eStatesAndPaths/MODE.txt"
     write_destination_info 
     write_to_diary "$1" # graceful exits after this command should include lock.
     lock_destination_directory
@@ -198,7 +198,7 @@ function setup_replicable_experiment()
 function setup_replicable_experiment_script()
 {
     # Check whether in DEBUG mode or REPLICABLE mode.
-    read REPLICABLESTR < "MODE.txt"
+    read REPLICABLESTR < "r-eStatesAndPaths/MODE.txt"
     if [ -z "${REPLICABLESTR}" ] || [ "${REPLICABLESTR}" != "Replicable Mode" ]
     then
         echo "Executing $1 in DEBUG mode."
@@ -221,7 +221,7 @@ function setup_replicable_experiment_script()
 
     # Verify destination directory from PATHS.txt and DESTINATION.txt are the same.
     build_destination_string
-    read DESTINATIONFROMFILE < "DESTINATION.txt"
+    read DESTINATIONFROMFILE < "r-eStatesAndPaths/DESTINATION.txt"
     if [ -z "${DESTINATIONFROMFILE}" ] || [ "" = "${DESTINATIONFROMFILE}" ]
     then
        echo "Error: unable to read DESTINATION.txt."
@@ -255,7 +255,7 @@ function replicable_experiment_cleanup()
     SHA1="$(git rev-parse --short HEAD)"
     build_destination_string
     
-    read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
+    read REPLICABLEEXPERIMENTDIRECTORY < "r-eStatesAndPaths/REPLICABLE-EXPERIMENT.txt"
     if [ -z "${REPLICABLEEXPERIMENTDIRECTORY}" ] || [ "" = "${REPLICABLEEXPERIMENTDIRECTORY}" ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
