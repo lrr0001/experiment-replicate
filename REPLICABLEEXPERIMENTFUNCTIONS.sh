@@ -113,14 +113,14 @@ function get_destination_info()
         fi
         read DEBUGDIRECTORY
         read TEMPVAR
-        if [ "${TEMPVAR}" != "Penulatimate directory:" ]
+        if [ "${TEMPVAR}" != "Penultimate directory:" ]
         then
             echo "Third line of PATHS.txt should be Penultimate directory:"
             graceful_exit $1
         fi
         read REPLICABLEDIRECTORY
         read TEMPVAR
-        if [ "${TEMPVAR}" != "SHA1" ]
+        if [ "${TEMPVAR}" != "SHA1:" ]
         then
             echo "Fifth line of PATHS.txt should be SHA1:"
             graceful_exit $1
