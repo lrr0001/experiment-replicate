@@ -126,6 +126,9 @@ function get_destination_info()
         read SHA1HASH
         break
     done < "PATHS.txt"
+    export REPLICABLEDIRECTORY
+    export DEBUGDIRECTORY
+    export SHA1HASH
 }
 
 function write_destination_info()
