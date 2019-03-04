@@ -155,7 +155,7 @@ function write_destination_info()
     chmod -R +rwx "${DESTINATIONDIRECTORY}"
     export REVERTDESTINATIONINFO=0
     echo "Debug directory:" > "PATHS.txt"
-    echo "${DEBUGDICRECTORY}" >> "PATHS.txt"
+    echo "${DEBUGDIRECTORY}" >> "PATHS.txt"
     echo "Penultimate directory:" >> "PATHS.txt"
     echo "${REPLICABLEDIRECTORY}" >> "PATHS.txt"
     echo "SHA1:" >> "PATHS.txt"
