@@ -47,7 +47,7 @@ function gracefully_exit_failed_replicable_experiment_script()
     
     if [! -z "${DESTINATIONDIRECTORY}" ]
     then
-        if [ ls "${DESTINATIONDIRECTORY}" 2>/dev/null]
+        if [ -d "${DESTINATIONDIRECTORY}" ]
         then
             chmod -R +rx "${DESTINATIONDIRECTORY}"
         fi
