@@ -146,7 +146,7 @@ function write_destination_info()
 
     if [ ! -d "${DESTINATIONDIRECTORY}" ]
     then
-        if [ ! mkdir ${DESTNATIONDIRECTORY} ]
+        if [ ! mkdir ${DESTINATIONDIRECTORY} ]
         then
             echo "Creation of directory with path ${DESTINATIONDIRECTORY} failed!"
             gracefully_exit_setup
