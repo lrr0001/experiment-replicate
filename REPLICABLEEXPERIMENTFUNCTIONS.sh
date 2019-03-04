@@ -135,7 +135,7 @@ function get_destination_info()
 
 function write_destination_info()
 {
-    if [ "$({REPLICABLEDIRECTORY}: -1)" = "/" ]
+    if [ "$(${REPLICABLEDIRECTORY}: -1)" = "/" ]
     then
         export DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
     else
