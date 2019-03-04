@@ -26,9 +26,9 @@ function gracefully_exit_setup()
 
         fi
     fi
-    if [! -z "${DESTINATIONDIRECTORY}" ]
+    if [ ! -z "${DESTINATIONDIRECTORY}" ]
     then
-        if [ ls "${DESTINATIONDIRECTORY}" 2>/dev/null]
+        if [ -d "${DESTINATIONDIRECTORY}" ]
         then
             chmod -R +rx "${DESTINATIONDIRECTORY}"
         fi
@@ -161,6 +161,7 @@ function write_destination_info()
     echo "SHA1:" >> "PATHS.txt"
     SHA1="$(git rev-parse --short HEAD)"
     echo "${SHA1}" >> "PATHS.txt"
+    echo "${DESTINATIONDIRECTORY}" > "DESTINATION.txt"
 }
 
 
