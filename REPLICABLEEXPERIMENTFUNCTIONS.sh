@@ -103,21 +103,21 @@ function get_destination_info()
     # Additional use of variables could consolidate PATHS.txt file requirements (currently spread across get_destination_info() and write_destination_info() )
     while :
     do
-        read {local TEMPVAR}
+        read TEMPVAR
         if [ ${TEMPVAR} -ne "Debug directory:" ]
         then
             echo "First line of PATHS.txt should be Debug directory:"
             graceful_exit $1
         fi
         read DEBUGDIRECTORY
-        read {local TEMPVAR}
+        read TEMPVAR
         if [ ${TEMPVAR} -ne "Penulatimate directory:" ]
         then
             echo "Third line of PATHS.txt should be Penultimate directory:"
             graceful_exit $1
         fi
         read REPLICABLEDIRECTORY
-        read {local TEMPVAR}
+        read TEMPVAR
         if [ ${TEMPVAR} -ne "SHA1" ]
         then
             echo "Fifth line of PATHS.txt should be SHA1:"
