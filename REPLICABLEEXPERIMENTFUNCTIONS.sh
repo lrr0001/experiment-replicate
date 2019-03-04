@@ -218,7 +218,7 @@ function setup_replicable_experiment_script()
         DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
     fi
     read DESTINATIONFROMFILE < "DESTINATION.txt"
-    if [ -z "${DESTINATIONFROMFILE}" ] || [ "" = "${DESTINAIONFROMFILE}" ]
+    if [ -z "${DESTINATIONFROMFILE}" ] || [ "" = "${DESTINATIONFROMFILE}" ]
     then
        echo "Error: unable to read DESTINATION.txt."
        graceful_exit 1
