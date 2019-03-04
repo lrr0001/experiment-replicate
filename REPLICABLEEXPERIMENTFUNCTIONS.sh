@@ -72,8 +72,10 @@ function exit_if_directory_not_clean()
 {
     if [ "$#" -gt 1 ]
     then
-        if [ ! cd "$2" ]
+        if [ -d "$2" ]
         then
+            cd "$2"
+        else
             echo "Error: failed to change directory to $2."
             graceful_exit $1
         fi
