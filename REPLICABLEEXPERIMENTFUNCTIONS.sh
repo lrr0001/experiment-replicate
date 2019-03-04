@@ -6,14 +6,20 @@ function lock_destination_directory()
     then
         if [ -d "${DESTINATIONDIRECTORY}" ]
         then
-            chmod -R +rx "${DESTINATIONDIRECTORY}"
+            if chmod -R +rx "${DESTINATIONDIRECTORY}"
+            then
+                echo "Destination directory is locked."
+            else
+                echo "Error: failed to lock destination directory because chmod failed."
+            fi
+            
         else
             echo "Error: failed to lock destination directory because directory could not be found."
         fi
     else
         echo "Error: failed to lock destination directory because BASH variable is null."
     fi
-    echo "Destination directory is locked."
+    
 }
 
 function enter_debug_mode()
@@ -162,9 +168,15 @@ function write_to_diary()
     cd "${REPLICABLEEXPERIMENTDIRECTORY}"
     REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
     cd "${CURRENTDIRECTORY}"
-    chmod -R +rwx "${DESTINATIONDIRECTORY}" # graceful exits after this command should include lock
-    echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
-    echo "Destination directory is unlocked."
+    if chmod -R +rwx "${DESTINATIONDIRECTORY}" # graceful exits after this command should include lock
+    then
+        echo "Destination directory is unlocked."
+        echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
+    else
+        echo "Failed to unlock destination directory."
+    fi
+    
+    
 }
 
 function setup_replicable_experiment()
@@ -250,7 +262,7 @@ function replicable_experiment_cleanup()
         graceful_exit
     fi
     
-    write_to_diary
+    write_to_diary "$1"
     lock_destination_directory
     return 0
 }
