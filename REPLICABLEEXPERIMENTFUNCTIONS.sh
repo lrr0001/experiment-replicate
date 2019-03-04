@@ -159,7 +159,7 @@ function write_destination_info()
 
 function setup_replicable_experiment()
 {
-    CURRENTDIRECTORY=pwd
+    CURRENTDIRECTORY=$(pwd)
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
     if [ {-z ${REPLICABLEEXPERIMENTDIRECTORY}}||{"" -eq ${REPLICABLEEXPERIMENTDIRECTORY}} ]
     then
@@ -190,7 +190,7 @@ function setup_replicable_experiment_script()
         echo "Executing $1 in DEBUG mode."
         return 0
     fi
-    CURRENTDIRECTORY=pwd
+    CURRENTDIRECTORY=$(pwd)
     if [ ! read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt" ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
@@ -241,7 +241,7 @@ function gracefully_exit_successful_replicable_experiment_script()
 function replicable_experiment_cleanup()
 {
     export REPLICABLE=1
-    CURRENTDIRECTORY=pwd
+    CURRENTDIRECTORY=$(pwd)
     if [ ! read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt" ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
