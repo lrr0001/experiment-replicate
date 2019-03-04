@@ -164,7 +164,7 @@ function setup_replicable_experiment()
 {
     CURRENTDIRECTORY=$(pwd)
     read REPLICABLEEXPERIMENTDIRECTORY < "REPLICABLE-EXPERIMENT.txt"
-    if [ {-z ${REPLICABLEEXPERIMENTDIRECTORY}}||{"" -eq ${REPLICABLEEXPERIMENTDIRECTORY}} ]
+    if [ {-z ${REPLICABLEEXPERIMENTDIRECTORY}}||{"" -eq ${REPLICABLEEXPERIMENTDIRECTORY}}} ]
     then
         echo "Unable to read REPLICABLE-EXPERIMENT.txt."
         gracefully_exit_setup
