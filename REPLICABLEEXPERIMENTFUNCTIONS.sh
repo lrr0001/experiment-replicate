@@ -5,7 +5,7 @@
 
 function gracefully_exit_setup()
 {
-    cd ${CURRENTDIRECTORY}
+    cd "${CURRENTDIRECTORY}"
     if [ "$1" -eq "0" ]
     then
         :
@@ -95,7 +95,7 @@ function exit_if_directory_not_clean()
         
         graceful_exit $1
     fi
-    cd ${CURRENTDIRECTORY}
+    cd "${CURRENTDIRECTORY}"
 }
 
 function get_destination_info()
@@ -175,9 +175,9 @@ function setup_replicable_experiment()
     export REPLICABLE=0
     echo "Current mode: Replicable"
     write_destination_info 1
-    cd ${REPLICABLEEXPERIMENTDIRECTORY}
+    cd "${REPLICABLEEXPERIMENTDIRECTORY}"
     REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
-    cd ${CURRENTDIRECTORY}
+    cd "${CURRENTDIRECTORY}"
     echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
     chmod -R +rx "${DESTINATIONDIRECTORY}"
     return 0
@@ -227,9 +227,9 @@ function setup_replicable_experiment_script()
             graceful_exit 1
         fi
     fi
-    cd ${REPLICABLEEXPERIMENTDIRECTORY}
+    cd "${REPLICABLEEXPERIMENTDIRECTORY}"
     REPLICABLEEXPERIMENTSHA1="$(git rev-pase --short HEAD)"
-    cd ${CURRENTDIRECTORY}
+    cd "${CURRENTDIRECTORY}"
     chmod -R +rwx "${DESTINATIONDIRECTORY}"
     echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
     return 0
@@ -255,9 +255,9 @@ function replicable_experiment_cleanup()
     then
         export REVERTDESTINATIONINFO=1
     fi
-    cd ${REPLICABLEEXPERIMENTDIRECTORY}
+    cd "${REPLICABLEEXPERIMENTDIRECTORY}"
     REPLICABLEEXPERIMENTSHA1="$(git rev-pase --short HEAD)"
-    cd ${CURRENTDIRECTORY}
+    cd "${CURRENTDIRECTORY}"
     chmod -R +rwx "${DESTINATIONDIRECTORY}"
     echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
     chmod -R +rx "${DESTINATIONDIRECTORY}"
