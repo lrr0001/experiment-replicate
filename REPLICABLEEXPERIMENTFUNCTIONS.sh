@@ -104,21 +104,21 @@ function get_destination_info()
     while :
     do
         read TEMPVAR
-        if [ ${TEMPVAR} -ne "Debug directory:" ]
+        if [ "${TEMPVAR}" -ne "Debug directory:" ]
         then
             echo "First line of PATHS.txt should be Debug directory:"
             graceful_exit $1
         fi
         read DEBUGDIRECTORY
         read TEMPVAR
-        if [ ${TEMPVAR} -ne "Penulatimate directory:" ]
+        if [ "${TEMPVAR}" -ne "Penulatimate directory:" ]
         then
             echo "Third line of PATHS.txt should be Penultimate directory:"
             graceful_exit $1
         fi
         read REPLICABLEDIRECTORY
         read TEMPVAR
-        if [ ${TEMPVAR} -ne "SHA1" ]
+        if [ "${TEMPVAR}" -ne "SHA1" ]
         then
             echo "Fifth line of PATHS.txt should be SHA1:"
             graceful_exit $1
