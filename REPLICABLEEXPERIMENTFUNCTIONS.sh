@@ -215,9 +215,9 @@ function setup_replicable_experiment_script()
     get_destination_info
     if [ "${REPLICABLEDIRECTORY: -1}" = "/" ]
     then
-        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
+        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1HASH}"
     else
-        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
+        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1HASH}"
     fi
     read DESTINATIONFROMFILE < "DESTINATION.txt"
     if [ -z "${DESTINATIONFROMFILE}" ] || [ "" = "${DESTINATIONFROMFILE}" ]
@@ -226,7 +226,7 @@ function setup_replicable_experiment_script()
        graceful_exit 1
     fi
 
-    if [ "${DESTINATIONDIRECTORY}/" = "${DESTINATIONFROMFILE}" ] && [ "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}" ] && [ "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}/" ]
+    if [ ! "${DESTINATIONDIRECTORY}/" = "${DESTINATIONFROMFILE}" ] && [ ! "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}" ] && [ ! "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}/" ]
     then
         echo "Error: destinations from DESTINATION.txt and PATHS.txt do not match."
         graceful_exit 1
@@ -263,9 +263,9 @@ function replicable_experiment_cleanup()
     get_destination_info 1
     if [ "${REPLICABLEDIRECTORY: -1}" = "/" ]
     then
-        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1}"
+        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}${SHA1HASH}"
     else
-        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1}"
+        DESTINATIONDIRECTORY="${REPLICABLEDIRECTORY}/${SHA1HASH}"
     fi
     if echo "${DEBUGDIRECTORY}" > "DESTINATION.txt"
     then
