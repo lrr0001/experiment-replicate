@@ -54,9 +54,9 @@ function exit_if_directory_not_clean()
 {
     if [ "$#" -gt 0 ]
     then
-        if [ -d "$1" ]
+        if cd "$1"
         then
-            cd "$1"
+            :
         else
             echo "Error: failed to change directory to $1."
             graceful_exit
@@ -165,8 +165,20 @@ function write_destination_info()
 
 function write_to_diary()
 {
-    cd "${REPLICABLEEXPERIMENTDIRECTORY}"
-    REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
+    if cd "${REPLICABLEEXPERIMENTDIRECTORY}"
+    then
+        :
+    else
+        echo "Error: failed to change directory into ${REPLICABLEEXPERIMENTDIRECTORY}."
+        graceful_exit
+    fi
+    if REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
+    then
+        :
+    else
+        echo "Error: git rev-parse command failed in ${REPLICABLEEXPERIMENTDIRECTORY}."
+        graceful_exit
+    fi 
     cd "${CURRENTDIRECTORY}"
     if chmod -R a=rwX "${DESTINATIONDIRECTORY}" # graceful exits after this command should include lock
     then
@@ -230,7 +242,7 @@ function setup_replicable_experiment_script()
     if [ ! "${DESTINATIONDIRECTORY}/" = "${DESTINATIONFROMFILE}" ] && [ ! "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}" ] && [ ! "${DESTINATIONDIRECTORY}" = "${DESTINATIONFROMFILE}/" ]
     then
         echo "Error: destinations from DESTINATION.txt and PATHS.txt do not match."
-        graceful_exit 1
+        graceful_exit
     fi
 
     write_to_diary "$1"
@@ -252,7 +264,13 @@ function replicable_experiment_cleanup()
 {
     CURRENTDIRECTORY="$(pwd)"
     get_destination_info
-    SHA1="$(git rev-parse --short HEAD)"
+    if SHA1="$(git rev-parse --short HEAD)"
+    then
+        :
+    else
+        echo "git vev-parse failed in current directory."
+        graceful_exit
+    fi
     build_destination_string
     
     read REPLICABLEEXPERIMENTDIRECTORY < "r-eStatesAndPaths/REPLICABLE-EXPERIMENT.txt"
