@@ -6,7 +6,7 @@ function lock_destination_directory()
     then
         if [ -d "${DESTINATIONDIRECTORY}" ]
         then
-            if chmod -R 555 "${DESTINATIONDIRECTORY}"
+            if chmod -R a=rX "${DESTINATIONDIRECTORY}"
             then
                 echo "Destination directory is locked."
             else
@@ -168,7 +168,7 @@ function write_to_diary()
     cd "${REPLICABLEEXPERIMENTDIRECTORY}"
     REPLICABLEEXPERIMENTSHA1="$(git rev-parse --short HEAD)"
     cd "${CURRENTDIRECTORY}"
-    if chmod -R 777 "${DESTINATIONDIRECTORY}" # graceful exits after this command should include lock
+    if chmod -R a=rwX "${DESTINATIONDIRECTORY}" # graceful exits after this command should include lock
     then
         echo "Destination directory is unlocked."
         echo "$1 ${REPLICABLEEXPERIMENTSHA1}" >> "${DESTINATIONDIRECTORY}/DIARY.txt"
