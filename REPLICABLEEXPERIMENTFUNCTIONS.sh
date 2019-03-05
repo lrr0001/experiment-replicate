@@ -150,7 +150,7 @@ function write_destination_info()
 
     if [ ! -d "${DESTINATIONDIRECTORY}" ]
     then
-        if mkdir ${DESTINATIONDIRECTORY}
+        if mkdir "${DESTINATIONDIRECTORY}"
         then
             :
         else
